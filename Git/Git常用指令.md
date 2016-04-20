@@ -192,3 +192,14 @@ Git 是怎么创建新分支的呢？ 很简单，它只是为你创建了一个
 
 **你可以在不同分支间不断地来回切换和工作，并在时机成熟时将它们合并起来。**
 
+你可以使用 git merge 命令来达到上述目的：
+
+	$ git checkout master
+	$ git merge [branch name]
+	Updating f42c576..3a0874c
+	Fast-forward
+	 index.html | 2 ++
+	 1 file changed, 2 insertions(+)
+
+在合并的时候，你应该注意到了"快进（fast-forward）"这个词。 由于当前 master 分支所指向的提交是你当前提交（有关 hotfix 的提交）的直接上游，所以 Git 只是简单的将指针向前移动。 换句话说，当你试图合并两个分支时，如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候，只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧——这就叫做 “快进（fast-forward）”。
+

@@ -203,3 +203,124 @@ Git 是怎么创建新分支的呢？ 很简单，它只是为你创建了一个
 
 在合并的时候，你应该注意到了"快进（fast-forward）"这个词。 由于当前 master 分支所指向的提交是你当前提交（有关 hotfix 的提交）的直接上游，所以 Git 只是简单的将指针向前移动。 换句话说，当你试图合并两个分支时，如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候，只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧——这就叫做 “快进（fast-forward）”。
 
+### 分支的合并
+
+	$ git checkout master
+	Switched to branch 'master'
+	$ git merge iss53
+	Merge made by the 'recursive' strategy.
+	index.html |    1 +
+	1 file changed, 1 insertion(+)
+	
+这和你之前合并 hotfix 分支的时候看起来有一点不一样。 在这种情况下，你的开发历史从一个更早的地方开始分叉开来（diverged）。 因为，master 分支所在提交并不是 iss53 分支所在提交的直接祖先，Git 不得不做一些额外的工作。 出现这种情况的时候，Git 会使用两个分支的末端所指的快照（C4 和 C5）以及这两个分支的工作祖先（C2），做一个简单的三方合并。
+
+**可以将其他分支合并到 master 分支，也可以将 master 合并到其他分支，方法都试切换到要合并到的分支，然后执行 merge 操作**
+
+合并完成后，可以删除分支：
+
+	$ git branch -d [branch name]
+	
+#### 合并时候遇到冲突
+
+你可以在合并冲突后的任意时刻使用 git status 命令来查看那些因包含合并冲突而处于未合并（unmerged）状态的文件：
+
+	$ git status
+	On branch master
+	You have unmerged paths.
+	  (fix conflicts and run "git commit")
+
+	Unmerged paths:
+	  (use "git add <file>..." to mark resolution)
+
+    	both modified:      index.html
+
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+在你解决了所有文件里的冲突之后，对每个文件使用 git add 命令来将其标记为冲突已解决。 一旦暂存这些原本有冲突的文件，Git 就会将它们标记为冲突已解决。
+
+你可以再次运行 git status 来确认所有的合并冲突都已被解决：
+
+	$ git status
+	On branch master
+	All conflicts fixed but you are still merging.
+ 	 (use "git commit" to conclude merge)
+
+	Changes to be committed:
+
+    	modified:   index.html
+    	
+如果你对结果感到满意，并且确定之前有冲突的的文件都已经暂存了，这时你可以输入 git commit 来完成合并提交。
+
+### 分支管理
+
+`git branch` 命令不只是可以创建与删除分支。 如果不加任何参数运行它，会得到当前所有分支的一个列表：
+
+	$ git branch
+	  iss53
+	* master
+	  testing
+
+`git branch -a` 命令可以显示全部分支，包括远端的。
+
+如果需要查看每一个分支的最后一次提交，可以运行 `git branch -v` 命令。
+
+`--merged` 与 `--no-merged` 这两个有用的选项可以过滤这个列表中已经合并或尚未合并到当前分支的分支。
+
+`git branch -d` 命令可以用来删除分支，但是对于未合并的分支执行删除操作会失败。
+
+### 远程分支
+
+#### 推送
+
+当你想要公开分享一个分支时，需要将其推送到有写入权限的远程仓库上。 本地的分支并不会自动与远程仓库同步 - 你必须显式地推送想要分享的分支。 这样，你就可以把不愿意分享的内容放到私人分支上，而将需要和别人协作的内容推送到公开分支。
+
+如果希望和别人一起在名为 serverfix 的分支上工作，你可以像推送第一个分支那样推送它。 运行 git push (remote) (branch):
+
+	$ git push origin [branch name]
+
+这里有些工作被简化了。你也可以运行 git push origin serverfix:serverfix，它会做同样的事 - 相当于它说，“推送本地的 serverfix 分支，将其作为远程仓库的 serverfix 分支” 可以通过这种格式来推送本地分支到一个命名不相同的远程分支。 如果并不想让远程仓库上的分支叫做 serverfix，可以运行 git push origin serverfix:awesomebranch 来将本地的 serverfix 分支推送到远程仓库上的 awesomebranch 分支。
+
+#### 跟踪分支
+
+从一个远程跟踪分支检出一个本地分支会自动创建一个叫做 “跟踪分支”（有时候也叫做 “上游分支”）。 跟踪分支是与远程分支有直接关系的本地分支。 如果在一个跟踪分支上输入 git pull，Git 能自动地识别去哪个服务器上抓取、合并到哪个分支。
+
+当克隆一个仓库时，它通常会自动地创建一个跟踪 origin/master 的 master 分支。 然而，如果你愿意的话可以设置其他的跟踪分支 - 其他远程仓库上的跟踪分支，或者不跟踪 master 分支。 最简单的就是之前看到的例子，运行 git checkout -b [branch] [remotename]/[branch]。 这是一个十分常用的操作所以 Git 提供了 --track 快捷方式：
+
+	$ git checkout -b serverfix origin/serverfix
+	或者
+	$ git checkout --track origin/serverfix
+
+如果想要将本地分支与远程分支设置为不同名字，你可以轻松地增加一个不同名字的本地分支的上一个命令：
+
+	$ git checkout -b sf origin/serverfix
+
+现在，本地分支 sf 会自动从 origin/serverfix 拉取。
+
+设置已有的本地分支跟踪一个刚刚拉取下来的远程分支，或者想要修改正在跟踪的上游分支，你可以在任意时间使用 -u 或 --set-upstream-to 选项运行 git branch 来显式地设置。
+
+	$ git branch -u origin/serverfix
+
+如果想要查看设置的所有跟踪分支，可以使用 git branch 的 -vv 选项。 这会将所有的本地分支列出来并且包含更多的信息，如每一个分支正在跟踪哪个远程分支与本地分支是否是领先、落后或是都有。
+
+	$ git branch -vv
+	  iss53     7e424c3 [origin/iss53: ahead 2] forgot the brackets
+	  master    1ae2a45 [origin/master] deploying index fix
+	* serverfix f8674d9 [teamone/server-fix-good: ahead 3, behind 1] this should do it
+	  testing   5ea463a trying something new
+	  
+这里可以看到 iss53 分支正在跟踪 origin/iss53 并且 “ahead” 是 2，意味着本地有两个提交还没有推送到服务器上。 也能看到 master 分支正在跟踪 origin/master 分支并且是最新的。 接下来可以看到 serverfix 分支正在跟踪 teamone 服务器上的 server-fix-good 分支并且领先 2 落后 1，意味着服务器上有一次提交还没有合并入同时本地有三次提交还没有推送。 最后看到 testing 分支并没有跟踪任何远程分支。
+
+需要重点注意的一点是这些数字的值来自于你从每个服务器上最后一次抓取的数据。 这个命令并没有连接服务器，它只会告诉你关于本地缓存的服务器数据。 如果想要统计最新的领先与落后数字，需要在运行此命令前抓取所有的远程仓库。 可以像这样做：`$ git fetch --all; git branch -vv`
+
+#### 拉取
+
+	$ git pull
+
+#### 删除远程分支
+
+假设你已经通过远程分支做完所有的工作了 - 也就是说你和你的协作者已经完成了一个特性并且将其合并到了远程仓库的 master 分支（或任何其他稳定代码分支）。 可以运行带有 --delete 选项的 git push 命令来删除一个远程分支。 如果想要从服务器上删除 serverfix 分支，运行下面的命令：
+
+	$ git push origin --delete serverfix
+
+***
+test1

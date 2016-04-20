@@ -71,3 +71,101 @@
 	$ git checkout -- <file>
 
 你需要知道 git checkout -- [file] 是一个危险的命令，这很重要。 你对那个文件做的任何修改都会消失 - 你只是拷贝了另一个文件来覆盖它。 除非你确实清楚不想要那个文件了，否则不要使用这个命令。
+
+## 查看远程仓库
+
+	$ git remote
+
+你也可以指定选项 -v，会显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL。
+
+	$ git remote -v
+
+如果你的远程仓库不止一个，该命令会将它们全部列出，这样我们可以轻松拉取其中任何一个用户的贡献。
+
+## 从远程仓库中抓取与拉取
+
+	$ git fetch [remote-name]
+
+这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。
+
+必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
+
+如果你有一个分支设置为跟踪一个远程分支，可以使用 git pull 命令来自动的抓取然后合并远程分支到当前分支。
+
+## 推送到远程仓库
+
+	$ git push [remote-name] [branch-name]
+	
+只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先将他们的工作拉取下来并将其合并进你的工作后才能推送。
+
+## 查看远程仓库
+
+	$ git remote show [remote-name]
+	
+列出的信息非常有用，包括仓库的 url ， 目前所在分支，共有多少分支等等。
+
+## 标签 Tag
+
+Git 可以给历史中的某一个提交打上标签，以示重要。 比较有代表性的是人们会使用这个功能来标记发布结点（v1.0 等等）。
+
+### 列出标签
+
+	$ git tag
+
+你也可以使用特定的模式查找标签。 例如，Git 自身的源代码仓库包含标签的数量超过 500 个。 如果只对 1.8.5 系列感兴趣，可以运行：
+
+	$ git tag -l 'v1.8.5*'
+
+### 创建标签
+
+Git 使用两种主要类型的标签：轻量标签（lightweight）与附注标签（annotated）。
+
+#### 附注标签
+
+在 Git 中创建一个附注标签是很简单的。 最简单的方式是当你在运行 tag 命令时指定 -a 选项：
+
+	$ git tag -a v1.4 -m 'my version 1.4'
+	
+-m 选项指定了一条将会存储在标签中的信息。 如果没有为附注标签指定一条信息，Git 会运行编辑器要求你输入信息。
+
+通过使用 git show 命令可以看到标签信息与对应的提交信息：
+
+	$ git show v1.4
+
+输出显示了打标签者的信息、打标签的日期时间、附注信息，然后显示具体的提交信息。
+
+#### 轻量标签
+
+创建轻量标签，不需要使用 -a、-s 或 -m 选项，只需要提供标签名字：
+
+	$ git tag v1.4.1
+	
+#### 后期打标签
+
+你也可以对过去的提交打标签。 假设提交历史是这样的：
+
+	$ git log --pretty=oneline
+	15027957951b64cf874c3557a0f3547bd83b3ff6 Merge branch 'experiment'
+	a6b4c97498bd301d84096da251c98a07c7723e65 beginning write support
+	0d52aaab4479697da7686c15f77a3d64d9165190 one more thing
+	6d52a271eda8725415634dd79daabbc4d9b6008e Merge branch 'experiment'
+	0b7434d86859cc7b8c3d5e1dddfed66ff742fcbc added a commit function
+	4682c3261057305bdd616e23b64b0857d832627b added a todo file
+	166ae0c4d3f420721acbb115cc33848dfcc2121a started write support
+	9fceb02d0ae598e95dc970b74767f19372d61af8 updated rakefile
+	964f16d36dfccde844893cac5b347e7b3d44abbc commit the todo
+	8a5cbc430f1a9c3d00faaeffd07798508422908a updated readme
+
+现在，假设在 v1.2 时你忘记给项目打标签，也就是在 “updated rakefile” 提交。 你可以在之后补上标签。 要在那个提交上打标签，你需要在命令的末尾指定提交的校验和（或部分校验和）:
+
+	$ git tag -a v1.2 9fceb02
+
+#### 共享标签
+
+默认情况下，git push 命令并不会传送标签到远程仓库服务器上。 在创建完标签后你必须显式地推送标签到共享服务器上。 这个过程就像共享远程分支一样 - 你可以运行 `git push origin [tagname]`。
+
+	$ git push origin v1.5
+	
+如果想要一次性推送很多标签，也可以使用带有 `--tags` 选项的 git push 命令。 这将会把所有不在远程仓库服务器上的标签全部传送到那里。
+
+	$ git push origin --tags

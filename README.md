@@ -8,4 +8,4 @@
 
 [Git 规范](Git/Git规范.md)
 
-[Git 常用命令](Git/Git常用命令.md)
+[Git 常用命令](Git/Git常用指令.md)

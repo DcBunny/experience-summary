@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-01T07:39:09.634Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15" etag="b-FgIdxCVezk0EhYfcli" version="14.2.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-01T07:59:51.968Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15" etag="y6uyc_HF1ocULriD-Cfn" version="14.2.9" type="github">
   <diagram id="8wp-kkvbxen9tDqzM8C1" name="Page-1">
     <mxGraphModel dx="830" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -54,6 +54,9 @@
         <mxCell id="-4VRe7rHG7LYMEuQ_F8g-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-4VRe7rHG7LYMEuQ_F8g-15" target="-4VRe7rHG7LYMEuQ_F8g-18">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="-4VRe7rHG7LYMEuQ_F8g-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-4VRe7rHG7LYMEuQ_F8g-15" target="-4VRe7rHG7LYMEuQ_F8g-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="-4VRe7rHG7LYMEuQ_F8g-15" value="处理完成后，流程结束并走回到汇总人，提供问题处理报告" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="120" y="720" width="120" height="60" as="geometry" />
         </mxCell>
@@ -62,6 +65,12 @@
         </mxCell>
         <mxCell id="-4VRe7rHG7LYMEuQ_F8g-18" value="汇总人反馈处理结果给提出人，并更新收集表" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="120" y="830" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-4VRe7rHG7LYMEuQ_F8g-20" value="报告内容包含：问题分析、问题处理方法等，如果为外部问题，提供分析证明" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-4VRe7rHG7LYMEuQ_F8g-22" value="1.提出问题时，尽可能收集相关信息，将问题描述清晰；&lt;br&gt;2.问题有始有终，形成闭环，汇总人负责过程跟踪；&lt;br&gt;3.处理过程有依据，每一位处理人都需要提供尽可能详细的分析及处理说明，即使问题不是自己负责的模块；&lt;br&gt;4.处理过程中，问题的处理人需要积极推进，认真负责；&lt;br&gt;5.小问题定期集中复盘，大问题解决完后立即复盘；" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="280" width="320" height="340" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

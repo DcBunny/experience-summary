@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-25T08:24:33.059Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="rX3xHbrssDR3JkUHBArx" version="14.4.3" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-25T08:26:40.526Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15" etag="ruDojAnJsDB51prv4CKV" version="14.4.3" type="github">
   <diagram id="lVXfZRTqtnKGtWbZmzMi" name="Page-1">
     <mxGraphModel dx="1426" dy="772" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -7,13 +7,13 @@
         <mxCell id="htOWc3vwBiGA04LyV9Uv-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="100" y="200" width="500" height="240" as="geometry" />
         </mxCell>
-        <mxCell id="htOWc3vwBiGA04LyV9Uv-3" value="Ringa平台" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="htOWc3vwBiGA04LyV9Uv-3" value="Ringa私有平台" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="160" y="310" width="200" height="110" as="geometry" />
         </mxCell>
         <mxCell id="htOWc3vwBiGA04LyV9Uv-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="htOWc3vwBiGA04LyV9Uv-4" target="htOWc3vwBiGA04LyV9Uv-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="htOWc3vwBiGA04LyV9Uv-4" value="APP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="htOWc3vwBiGA04LyV9Uv-4" value="私有化&lt;br&gt;APP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="50" y="200" width="40" height="60" as="geometry" />
         </mxCell>
         <mxCell id="htOWc3vwBiGA04LyV9Uv-5" value="烟感管理系统" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
